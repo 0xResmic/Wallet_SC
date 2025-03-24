@@ -1,67 +1,44 @@
-## Foundry
+# Resmic Smart Contract
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Overview
 
-Foundry consists of:
+This smart contract is part of the **Resmic** decentralised crypto payment infrastructure. It is responsible for **generating non-custodial, on-chain wallet sessions** for individual payment links/pages, enabling instant and secure crypto payments across multiple blockchains.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## 🎯 Purpose
 
-## Documentation
+- Deploys temporary or session-based wallet contracts using a **Factory**
+- Handles **token transfers** (deposis and withdraw)
+- Built for **multi-chain support** with compatibility for EVM chains.
 
-https://book.getfoundry.sh/
+---
 
-## Usage
+## 🧱 Architecture
 
-### Build
+### 🔹 Factory Contract (`Factory.sol`)
+- Deploys TempWallet contracts using `Clones`.
 
-```shell
-$ forge build
-```
+### 🔹 Payment Wallet (`TempWallet.sol`)
 
-### Test
+- Receives native or ERC20 tokens
+- Can be withdrawn by anyone, but only to the `client`.
 
-```shell
-$ forge test
-```
+---
 
-### Format
+## Key Features
 
-```shell
-$ forge fmt
-```
+- ✅ Non-custodial: Funds go directly to the wallet the merchant controls
+- ✅ No intermediaries or approvals required
+- ✅ Multi-token support (via ERC20 interface)
+- ✅ Gas-efficient design with low deployment costs
 
-### Gas Snapshots
+---
 
-```shell
-$ forge snapshot
-```
+## Security Considerations
 
-### Anvil
+- Contract does not hold any privileged access
+- No reentrancy vectors as all logic is single-call
 
-```shell
-$ anvil
-```
+---
 
-### Deploy
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
 
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
-# Wallet_SC
